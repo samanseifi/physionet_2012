@@ -11,9 +11,12 @@ class Imputer:
     def apply_imputations(self):
         """Apply multiple imputation methods and save results."""
         print("Applying imputations...")
+        
+        # Ignoring the column with patient_id
+        self.numeric_cols = self.numeric_cols.drop('patient_id')
 
         imputers = {
-            "mean": SimpleImputer(strategy='mean'),
+            "mean": SimpleImputer(strategy='mean', ),
             "median": SimpleImputer(strategy='median'),
             "knn": KNNImputer(n_neighbors=20, weights='uniform', metric='nan_euclidean'),
             "iterative": IterativeImputer(max_iter=10, random_state=42)
